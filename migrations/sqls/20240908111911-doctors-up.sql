@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS doctors(
     birthdate Date,
     address VARCHAR(255),
     degree VARCHAR(255),
-    Specialization VARCHAR(255),
+    specialization VARCHAR(255),
     description VARCHAR(255)
     );

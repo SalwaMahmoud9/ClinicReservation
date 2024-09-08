@@ -106,7 +106,7 @@ After run dependencies run some scripts to start :
     birthdate Date,
     address VARCHAR(255),
     degree VARCHAR(255),
-    Specialization VARCHAR(255),
+    specialization VARCHAR(255),
     description VARCHAR(255)
     );
 - clinics:
@@ -124,7 +124,7 @@ After run dependencies run some scripts to start :
     clinic_id INTEGER REFERENCES clinics(id) NOT NULL,
     date Date NOT NULL,   
     description VARCHAR(255),
-    Diagnosis VARCHAR(255)
+    diagnosis VARCHAR(255)
     );
 ***write down migrations***
 - users :

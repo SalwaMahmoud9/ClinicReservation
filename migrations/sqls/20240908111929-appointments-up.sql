@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS appointments(
     clinic_id INTEGER REFERENCES clinics(id) NOT NULL,
     date Date NOT NULL,   
     description VARCHAR(255),
-    Diagnosis VARCHAR(255)
+    diagnosis VARCHAR(255)
     );
