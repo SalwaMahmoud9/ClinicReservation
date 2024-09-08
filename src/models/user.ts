@@ -12,12 +12,11 @@ const saltRounds = process.env.SALT_ROUNDS;
 export type User = {
   id?: number;
   username: string;
-  firstname: string;
-  lastname: string;
+  type: string;
   password: string;
 };
 // define class for all needed functions to be used
-export class UserStore {
+export class UserClinic {
   async authenticate(username: string, password: string): Promise<User> {
     try {
       if (username && username != '' && password && password != '') {
@@ -89,8 +88,7 @@ export class UserStore {
       // database connection
       const conn = await Client.connect();
       const username = u.username;
-      const firstname = u.firstname;
-      const lastname = u.lastname;
+      const type = u.type;
       const password = u.password;
       // generate hash password
       const hashPass = bcrypt.hashSync(
@@ -102,19 +100,16 @@ export class UserStore {
         username != '' &&
         password &&
         password != '' &&
-        firstname &&
-        firstname != '' &&
-        lastname &&
-        lastname != ''
+        type &&
+        type != ''
       ) {
         //sql query
         const sql =
-          'INSERT INTO users (username,firstname,lastname,password) VALUES($1,$2,$3,$4) RETURNING *;';
+          'INSERT INTO users (username,type,password) VALUES($1,$2,$3) RETURNING *;';
         //exexute query
         const result = await conn.query(sql, [
           username,
-          firstname,
-          lastname,
+          type,
           hashPass
         ]);
         //close connection
@@ -134,8 +129,7 @@ export class UserStore {
       const conn = await Client.connect();
       const id = u.id;
       const username = u.username;
-      const firstname = u.firstname;
-      const lastname = u.lastname;
+      const type = u.type;
       const password = u.password;
       const hashPass = bcrypt.hashSync(
         password + pepper,
@@ -148,20 +142,17 @@ export class UserStore {
         username != '' &&
         password &&
         password != '' &&
-        firstname &&
-        firstname != '' &&
-        lastname &&
-        lastname != ''
+        type &&
+        type != ''
       ) {
         //sql query
         const sql =
-          'UPDATE users SET username=($2),firstname=($3),lastname=($4),password=($5) WHERE id=($1) RETURNING *';
+          'UPDATE users SET username=($2),type=($3),password=($4) WHERE id=($1) RETURNING *';
         //exexute query
         const result = await conn.query(sql, [
           id,
           username,
-          firstname,
-          lastname,
+          type,
           hashPass
         ]);
         //close connection

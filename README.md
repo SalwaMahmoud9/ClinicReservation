@@ -59,11 +59,11 @@ Your application must make use of the following:
 **database Port** : 5432;
 In psql run the following:
 **for Development**
-- CREATE DATABASE clinicReservation_dev;
+- CREATE DATABASE clinicreservation_dev;
 - \c clinicReservation_dev
 
 **for Test**
-- CREATE DATABASE clinicReservation_test;
+- CREATE DATABASE clinicreservation_test;
 - \c clinicReservation_test
 
 ### 2. Migrations:

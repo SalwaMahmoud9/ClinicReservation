@@ -1,1 +1,1 @@
-/* Replace with your SQL commands */
+DROP Table IF EXISTS clinics;
