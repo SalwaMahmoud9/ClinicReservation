@@ -2,7 +2,7 @@
 
 ## Main function 
 I'm starting this project by helping from my session leads , class rooms and slack community to get the project final result.
-the project main functionality is to make apart of backend for online store with simple products, users and make orders.
+the project main functionality is to make apart of backend for online clinicReservation with simple products, users and make orders.
 
 ## Required Technologies
 Your application must make use of the following:
@@ -59,12 +59,12 @@ Your application must make use of the following:
 **database Port** : 5432;
 In psql run the following:
 **for Development**
-- CREATE DATABASE store_dev;
-- \c store_dev
+- CREATE DATABASE clinicReservation_dev;
+- \c clinicReservation_dev
 
 **for Test**
-- CREATE DATABASE store_test;
-- \c store_test
+- CREATE DATABASE clinicReservation_test;
+- \c clinicReservation_test
 
 ### 2. Migrations:
 After run dependencies run some scripts to start :
@@ -79,39 +79,57 @@ After run dependencies run some scripts to start :
 - db-migrate create order_products --sql-file
 ***write up migrations***
 - users :
+    CREATE TYPE user_type AS ENUM ('doctor', 'reception');
     CREATE TABLE IF NOT EXISTS users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(64) NOT NULL UNIQUE,
-    firstname VARCHAR(255) NOT NULL,
-    lastname VARCHAR(255) NOT NULL ,
+    type user_type NOT NULL,
     password VARCHAR(255) NOT NULL
     );
-- products :
-    CREATE TABLE IF NOT EXISTS products(
+- patients:
+    CREATE TABLE IF NOT EXISTS patients(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    price NUMERIC(5,2) NOT NULL,
-    category VARCHAR(255)
+    phone VARCHAR(10) NOT NULL,
+    gender VARCHAR(10),
+    birthdate Date,
+    address VARCHAR(255),
+    description VARCHAR(255)
     );
-- orders :
-    CREATE TYPE status_order AS ENUM ('active', 'complete');
-    CREATE TABLE IF NOT EXISTS orders(
+- doctors:
+    CREATE TABLE IF NOT EXISTS doctors(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    gender VARCHAR(10),
+    birthdate Date,
+    address VARCHAR(255),
+    degree VARCHAR(255),
+    Specialization VARCHAR(255),
+    description VARCHAR(255)
+    );
+- clinics:
+    CREATE TABLE IF NOT EXISTS clinics(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255)
+    ); 
+- appointments:
+    CREATE TABLE IF NOT EXISTS appointments(
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) NOT NULL,
-    status status_order NOT NULL
-    );
-- order_products :
-    CREATE TABLE IF NOT EXISTS order_products(
-    id SERIAL PRIMARY KEY,
-    quantity INTEGER,
-    order_id INTEGER REFERENCES orders(id) NOT NULL,
-    product_id INTEGER REFERENCES products(id) NOT NULL
+    doctor_id INTEGER REFERENCES doctors(id) NOT NULL,
+    patient_id INTEGER REFERENCES patients(id) NOT NULL,
+    clinic_id INTEGER REFERENCES clinics(id) NOT NULL,
+    date Date NOT NULL,
+    description VARCHAR(255),
+    Diagnosis VARCHAR(255)
     );
 ***write down migrations***
 - users :
    DROP Table IF EXISTS users;
-- products :
-    DROP Table IF EXISTS  products;
+- patients :
+    DROP Table IF EXISTS  patients;
 - orders :
     DROP Table IF EXISTS  orders;
     DROP TYPE status_order;
