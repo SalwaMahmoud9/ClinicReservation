@@ -74,9 +74,10 @@ After run dependencies run some scripts to start :
 **for migrations**
 ***create migrations***
 - db-migrate create users --sql-file
-- db-migrate create products --sql-file
-- db-migrate create orders --sql-file
-- db-migrate create order_products --sql-file
+- db-migrate create patients --sql-file
+- db-migrate create doctors --sql-file
+- db-migrate create clinics --sql-file
+- db-migrate create appointments --sql-file
 ***write up migrations***
 - users :
     CREATE TYPE user_type AS ENUM ('doctor', 'reception');
@@ -121,21 +122,22 @@ After run dependencies run some scripts to start :
     doctor_id INTEGER REFERENCES doctors(id) NOT NULL,
     patient_id INTEGER REFERENCES patients(id) NOT NULL,
     clinic_id INTEGER REFERENCES clinics(id) NOT NULL,
-    date Date NOT NULL,
+    date Date NOT NULL,   
     description VARCHAR(255),
     Diagnosis VARCHAR(255)
     );
 ***write down migrations***
 - users :
    DROP Table IF EXISTS users;
+   DROP TYPE user_type;
 - patients :
-    DROP Table IF EXISTS  patients;
-- orders :
-    DROP Table IF EXISTS  orders;
-    DROP TYPE status_order;
-- order_products :
-    DROP Table IF EXISTS  order_products;
-
+    DROP Table IF EXISTS patients;
+- doctors :
+    DROP Table IF EXISTS doctors;
+- clinics :
+    DROP Table IF EXISTS clinics;
+- appointments :
+    DROP Table IF EXISTS appointments;
 
 ### 2.  Run Migrations
 
