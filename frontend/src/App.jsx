@@ -14,10 +14,10 @@ import { Contact } from "./components/contact";
 import { Clinics } from "./components/clinics";
 import { AddClinic } from "./components/addClinic";
 import { Doctors } from "./components/doctors";
-import { AddDoctor } from "./components/addDoctors";
+import { AddDoctor } from "./components/addDoctor";
 import { Patients } from "./components/patients";
 import { AddPatient } from "./components/addPatient";
-import { Appointments } from "./components/appoitments";
+import { Appointments } from "./components/appointments";
 import { AddAppointment } from "./components/addAppoitment";
 import { UserLogin } from "./components/login";  // Import the Login component
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";// Import the Login component
@@ -37,8 +37,6 @@ const App = () => {
   const [userToEdit, setUserToEdit] = useState(null);
   const [usersListUpdated, setUsersListUpdated] = useState(false); // Track updates to user list
 
-  // alert(userName);
-  
   useEffect(() => {
     setLandingPageData(JsonData);
     
@@ -52,6 +50,7 @@ const App = () => {
     setIsAuthenticated(false);
     setUserName(""); // Clear the user's name on logout
   };
+   // user
 const handleEditUser = (user) => {
   setUserToEdit(user);
 };
@@ -63,6 +62,65 @@ const handleClearUser = () => {
   const refreshUsersList = () => {
     setUsersListUpdated(!usersListUpdated); // Toggle the state to force re-fetch in Users component
   };
+  // doctor
+  const [doctorToEdit, setDoctorToEdit] = useState(null);
+  const [doctorsListUpdated, setDoctorsListUpdated] = useState(false); // Track updates to doctor list
+  const handleEditDoctor = (doctor) => {
+    setDoctorToEdit(doctor);
+  };
+  
+  const handleClearDoctor = () => {
+    setDoctorToEdit(null);
+  };
+    // Function to trigger re-fetching Doctors after add/edit
+    const refreshDoctorsList = () => {
+      setDoctorsListUpdated(!doctorsListUpdated); // Toggle the state to force re-fetch in Doctors component
+    };
+
+    // patient
+    const [patientToEdit, setPatientToEdit] = useState(null);
+    const [patientsListUpdated, setPatientsListUpdated] = useState(false); // Track updates to patient list
+  const handleEditPatient = (patient) => {
+    setPatientToEdit(patient);
+  };
+  
+  const handleClearPatient = () => {
+    setPatientToEdit(null);
+  };
+    // Function to trigger re-fetching Patients after add/edit
+    const refreshPatientsList = () => {
+      setPatientsListUpdated(!patientsListUpdated); // Toggle the state to force re-fetch in Patients component
+    };
+
+// clinic
+const [clinicToEdit, setClinicToEdit] = useState(null);
+const [clinicsListUpdated, setClinicsListUpdated] = useState(false); // Track updates to doctor list
+  const handleEditClinic= (clinic) => {
+    setClinicToEdit(clinic);
+  };
+  
+  const handleClearClinic = () => {
+    setClinicToEdit(null);
+  };
+    // Function to trigger re-fetching Clinics after add/edit
+    const refreshClinicsList = () => {
+      setClinicsListUpdated(!clinicsListUpdated); // Toggle the state to force re-fetch in Clinics component
+    };
+
+    // appointment
+const [appointmentToEdit, setAppointmentToEdit] = useState(null);
+const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); // Track updates to doctor list
+  const handleEditAppointment= (appointment) => {
+    setAppointmentToEdit(appointment);
+  };
+  
+  const handleClearAppointment = () => {
+    setAppointmentToEdit(null);
+  };
+    // Function to trigger re-fetching Appointments after add/edit
+    const refreshAppointmentsList = () => {
+      setAppointmentsListUpdated(!appointmentsListUpdated); // Toggle the state to force re-fetch in Appointments component
+    };
   return (
     <Router>
     <Routes>
@@ -86,14 +144,14 @@ const handleClearUser = () => {
             <Users onEditUser={handleEditUser} refreshTrigger={usersListUpdated} />
             <AddUser userToEdit={userToEdit} clearUser={handleClearUser} onUserChange={refreshUsersList}/>
             <About data={landingPageData.About} />
-            <Clinics data={landingPageData.Users} />
-            <AddClinic data={landingPageData.Users} />
-            <Doctors data={landingPageData.Users} />
-            <AddDoctor data={landingPageData.Users} />
-            <Patients data={landingPageData.Users} />
-            <AddPatient data={landingPageData.Users} />
-            <Appointments data={landingPageData.Users} />
-            <AddAppointment data={landingPageData.Users} />
+            <Clinics  onEditClinic={handleEditClinic} refreshTrigger={clinicsListUpdated} />
+            <AddClinic clinicToEdit={clinicToEdit} clearClinic={handleClearClinic} onClinicChange={refreshClinicsList} />
+            <Doctors onEditDoctor={handleEditDoctor} refreshTrigger={doctorsListUpdated} />
+            <AddDoctor doctorToEdit={doctorToEdit} clearDoctor={handleClearDoctor} onDoctorChange={refreshDoctorsList} />
+            <Patients onEditPatient={handleEditPatient} refreshTrigger={patientsListUpdated} />
+            <AddPatient patientToEdit={patientToEdit} clearPatient={handleClearPatient} onPatientChange={refreshPatientsList} />
+            <Appointments  onEditAppointment={handleEditAppointment} refreshTrigger={appointmentsListUpdated} />
+            <AddAppointment appointmentToEdit={appointmentToEdit} clearAppointment={handleClearAppointment} onAppointmentChange={refreshAppointmentsList} />
             <Contact data={landingPageData.Contact} />
           </>
         } 

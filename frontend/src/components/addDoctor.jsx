@@ -1,7 +1,7 @@
-// addpatient.jsx
+// adddoctor.jsx
 import React, { useState, useEffect }from "react";
 
-export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => {
+export const AddDoctor = ({ doctorToEdit, clearDoctor, onDoctorChange }) => {
 
   // State variables to store form inputs and error messages
   const [name, setName] = useState("");
@@ -9,26 +9,28 @@ export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => 
   const [gender, setGender] = useState("male");
   const [birthdate, setBirthdate] = useState("");
   const [address, setAddress] = useState("");
+  const [degree, setDegree] = useState("");
+  const [specialization, setSpecialization] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
 
- // Reset form fields when patientToEdit changes (i.e., when editing a patient)
+ // Reset form fields when doctorToEdit changes (i.e., when editing a doctor)
  useEffect(() => {
   
-  if (patientToEdit) {
-    setName(patientToEdit.name || "");
-    setPhone(patientToEdit.phone || ""); 
-    setGender(patientToEdit.gender || "male");
-    // setBirthdate(patientToEdit.birthdate || "");
+  if (doctorToEdit) {
+    setName(doctorToEdit.name || "");
+    setPhone(doctorToEdit.phone || ""); 
+    setGender(doctorToEdit.gender || "male");
+    // setBirthdate(doctorToEdit.birthdate || "");
     // Format the birthdate to YYYY-MM-DD for input type="date"
-    // const parsedBirthdate = patientToEdit.birthdate ? new Date(patientToEdit.birthdate).toISOString().split("T")[0] : "";
+    // const parsedBirthdate = doctorToEdit.birthdate ? new Date(doctorToEdit.birthdate).toISOString().split("T")[0] : "";
     // Check if birthdate exists, then adjust it accordingly
     let adjustedDate;
-    console.log(patientToEdit.birthdate)
-    if (patientToEdit.birthdate) {
-      const birthdate = new Date(patientToEdit.birthdate);
+    console.log(doctorToEdit.birthdate)
+    if (doctorToEdit.birthdate) {
+      const birthdate = new Date(doctorToEdit.birthdate);
 
       
       if (birthdate.getMonth() === 11 && birthdate.getDate() === 31) {
@@ -43,27 +45,31 @@ export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => 
     const formattedDate = adjustedDate.toISOString().split("T")[0]; // Format to YYYY-MM-DD
     setBirthdate(formattedDate);
 
-    setAddress(patientToEdit.address || "");
-    setDescription(patientToEdit.description || "");
+    setAddress(doctorToEdit.address || "");
+    setDegree(doctorToEdit.degree || "");
+    setSpecialization(doctorToEdit.specialization || "");
+    setDescription(doctorToEdit.description || "");
   } else {
-    // Clear form fields when adding a new patient
+    // Clear form fields when adding a new doctor
     setName("");
     setPhone(""); 
     setGender("male");
     setBirthdate("");
     setAddress("");
+    setDegree("");
+    setSpecialization("");
     setDescription("");
   }
-}, [patientToEdit]);
+}, [doctorToEdit]);
 
 
 // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const patientId = patientToEdit ? patientToEdit.id : null;
-      const url = patientId ? `/patients/${patientId}` : '/patients';
-      const method = patientId ? "PUT" : "POST";
+      const doctorId = doctorToEdit ? doctorToEdit.id : null;
+      const url = doctorId ? `/doctors/${doctorId}` : '/doctors';
+      const method = doctorId ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
@@ -76,42 +82,46 @@ export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => 
           gender,
           birthdate,
           address,
+          degree,
+          specialization,
           description }),
       });
 
       if (response.ok) {
         const result = await response.json();
-        setSuccess(result.message || "Patient saved successfully");
-        clearPatient(); // Clear patient details after successful save
+        setSuccess(result.message || "Doctor saved successfully");
+        clearDoctor(); // Clear doctor details after successful save
         // Clear form fields
         setName("");
         setPhone(""); 
         setGender("male");
         setBirthdate("");
         setAddress("");
+        setDegree("");
+        setSpecialization("");
         setDescription("");
-        onPatientChange(); // Trigger patient list refresh
-        document.querySelector("#patients").scrollIntoView({ behavior: "smooth" }); // Smooth scroll to patients
+        onDoctorChange(); // Trigger doctor list refresh
+        document.querySelector("#doctors").scrollIntoView({ behavior: "smooth" }); // Smooth scroll to doctors
 
     
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Failed to save patient");
+        setError(errorData.message || "Failed to save doctor");
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
     }
   };
   return (
-    <div id="addPatient" class="text-center">
+    <div id="addDoctor" class="text-center">
         <div className="container">
           <div className="col-md-12">
             <div className="row">
-              <form name="savePatient" onSubmit={handleSubmit}>
+              <form name="saveDoctor" onSubmit={handleSubmit}>
               <div className="row">
                     <div className="section-title">
-                        <h2> Patient</h2>
-                        <h2> add / change patient data</h2>
+                        <h2> Doctor</h2>
+                        <h2> add / change doctor data</h2>
                     </div>
                 </div>
                 <div className="row">
@@ -198,6 +208,38 @@ export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => 
                     <div className="form-group">
                       <input
                         type="text"
+                        id="degree"
+                        name="degree"
+                        value={degree}
+                        className="form-control"
+                        placeholder="Degree"
+                        onChange={(e) => setDegree(e.target.value)}
+                        required
+                      />
+                      <p className="help-block text-danger"></p>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        id="specialization"
+                        name="specialization"
+                        value={specialization}
+                        className="form-control"
+                        placeholder="Specialization"
+                        onChange={(e) => setSpecialization(e.target.value)}
+                        required
+                      />
+                      <p className="help-block text-danger"></p>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <input
+                        type="text"
                         id="description"
                         name="description"
                         value={description}
@@ -212,7 +254,7 @@ export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => 
                 </div>
                 <div id="success"></div>
                 <button type="submit" className="btn btn-custom btn-lg">
-                {patientToEdit ? "Update" : "Save"} {/* Update button text */}
+                {doctorToEdit ? "Update" : "Save"} {/* Update button text */}
                 </button>
               </form>
             </div>

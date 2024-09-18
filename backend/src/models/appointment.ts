@@ -81,9 +81,9 @@ export class AppointmentClinic {
         // console.log(name);
         //sql query
         const sql =
-          'INSERT INTO appointments (user_id,doctor_id,doctor_id,clinic_id,date,description,diagnosis) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;';
+          'INSERT INTO appointments (user_id,doctor_id,patient_id,clinic_id,date,description,diagnosis) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;';
         //exexute query
-        const result = await conn.query(sql, [user_id, doctor_id, doctor_id,clinic_id,date,description,diagnosis]);
+        const result = await conn.query(sql, [user_id, doctor_id, patient_id,clinic_id,date,description,diagnosis]);
         //close connection
         conn.release();
         const newAppointment: Appointment = result.rows[0];
@@ -124,7 +124,7 @@ export class AppointmentClinic {
         const sql =
           'UPDATE appointments SET user_id=($2),doctor_id=($3),patient_id=($4),clinic_id=($5),date=($6),description=($7),diagnosis=($8) WHERE id=($1) RETURNING *';
         //exexute query
-        const result = await conn.query(sql, [id, user_id, doctor_id, doctor_id,clinic_id,date,description,diagnosis]);
+        const result = await conn.query(sql, [id, user_id, doctor_id, patient_id,clinic_id,date,description,diagnosis]);
         //close connection
         conn.release();
         const newAppointment: Appointment = result.rows[0];

@@ -33,9 +33,9 @@ export const Navigation = ({ userName, onLogout }) => {
                 Features
               </a> */}
               <li>
-               <a href="#users" className="page-scroll">
+               {/* <a href="#users" className="page-scroll">
                 Users
-              </a>
+              </a> */}
             </li>
             <li>
               <a href="#about" className="page-scroll">
@@ -62,15 +62,15 @@ export const Navigation = ({ userName, onLogout }) => {
                 Appointments
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="#contact" className="page-scroll">
                 Contact
               </a>
-            </li>
+            </li> */}
             {userName && (
               <>
                 <li>
-                  <a>Welcome, {userName}!</a>
+                  <a href="#users" className="page-scroll" >Welcome, {userName}!</a>
                 </li>
                 <li>
                   <a onClick={onLogout} style={{ cursor: "pointer" }}>Logout</a>

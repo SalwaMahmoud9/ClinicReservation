@@ -65,8 +65,8 @@ export const Users = ({ onEditUser, refreshTrigger }) => {
                     <table class="table">
                         <thead>
                         <tr>
-                            <th key='0'>user</th>
-                            <th key='1'>type</th>
+                            <th key='0'>User</th>
+                            <th key='1'>Type</th>
                             <th key='2'></th>
                             <th key='3'></th>
                         </tr>
