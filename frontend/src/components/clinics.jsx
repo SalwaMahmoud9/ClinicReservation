@@ -67,7 +67,7 @@ export const Clinics = ({ onEditClinic, refreshTrigger }) => {
                         <thead>
                         <tr>
                             <th key='0'>Clinic</th>
-                            <th key='1'>Specialization</th>
+                            <th key='1'>Address</th>
                             <th key='2'></th>
                             <th key='3'></th>
                         </tr>
