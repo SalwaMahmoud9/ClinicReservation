@@ -320,6 +320,7 @@ export class AppointmentClinic {
         //  WHERE date= ${date}
         //  ORDER BY date)
         //   ) as k;`;
+        // simple query
         const sql = `select id,user_id,doctor_id,patient_id,clinic_id,date,description,diagnosis,(select name from doctors where id=${doctor_id}) as doctor,(select name from clinics where id=${clinic_id}) as clinic,(select name from patients where id=${patient_id}) as patient from appointments where date= ${date} and doctor_id=${doctor_id} and patient_id=${patient_id} and clinic_id=${clinic_id}`;
           console.log(query);
         //exexute query
