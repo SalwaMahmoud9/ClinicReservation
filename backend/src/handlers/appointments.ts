@@ -11,13 +11,13 @@ const appointmentsRoutes = (app: Application): void => {
   app.get('/appointments',tokenAuthentication, index);
   //get appointment by id
   app.get('/appointments/:id',tokenAuthentication ,show);
-  // get appointment by category
-  //[OPTIONAL] Appointments by category (args: appointment category)
-//   app.get(
-//     '/appointmentsCategory/:category',
-//     tokenAuthentication,
-//     getAppointmentByCategory
-//   );
+  //get appointment Filter
+  // [OPTIONAL] Appointments Filter (args: appointment clinic_id,,patient_id,patient_id)
+  app.get(
+    '/appointmentsFilter/:doctor_id/:patient_id/:clinic_id/:date',
+    tokenAuthentication,
+    getAppointmentByFilter
+  );
   //insert appointment
   app.post('/appointments', create);
   // update appointment by id
@@ -69,33 +69,43 @@ const show = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send(err);
   }
 };
-// // get appointment by category
-// const getAppointmentByCategory = async (
-//   req: Request,
-//   res: Response
-// ): Promise<void> => {
-//   try {
-//     // check category in request
-//     if ('category' in req.params) {
-//       if (req.params.category) {
-//         const category = req.params.category as string;
-//         const appointment = await appointmentClinic.getAppointmentByCategory(category);
-//         // check if there is returned data
-//         if (appointment) {
-//           res.json(appointment);
-//         } else {
-//           res.send('No Result');
-//         }
-//       } else {
-//         res.send('Check your id');
-//       }
-//     } else {
-//       res.send('check category in params');
-//     }
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// };
+// // get appointmentSearch
+const getAppointmentByFilter = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    
+    // check category in request
+    if ('doctor_id' in req.params &&
+        'patient_id' in req.params &&
+        'clinic_id' in req.params) {
+      if (req.params.doctor_id &&
+        req.params.patient_id &&
+        req.params.clinic_id) {
+        const doctor_id = parseInt(req.params.doctor_id as string);
+        const patient_id = parseInt(req.params.patient_id as string);
+        const clinic_id = parseInt(req.params.clinic_id as string);
+        const dateString = req.params.date as string;
+        console.log(dateString);
+        // const date = new Date(dateString); // Convert string to Date
+        const appointments = await appointmentClinic.getAppointmentByFilter(doctor_id, patient_id, clinic_id,dateString);
+        //check if there is data returned
+        if (appointments.length > 0) {
+          res.json(appointments);
+        } else {
+          res.send('No Result');
+        }
+      } else {
+        res.send('Check your id');
+      }
+    } else {
+      res.send('check category in params');
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 //insert appointment
 const create = async (req: Request, res: Response): Promise<void> => {
   try {

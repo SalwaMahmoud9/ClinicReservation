@@ -1,5 +1,6 @@
 import Client from '../database';
 import dotenv from 'dotenv';
+import { query } from 'express';
 
 // to use .env file variables
 dotenv.config();
@@ -23,8 +24,18 @@ export class AppointmentClinic {
       // database connection
       const conn = await Client.connect();
       //sql query
-      const sql = 'SELECT * FROM appointments;';
-      //exexute query
+      const sql = `SELECT app.*, d.name AS doctor
+                    , c.name AS clinic
+                    , p.name AS patient
+                    FROM appointments as app 
+                    JOIN doctors AS d 
+                    ON d.id = app.doctor_id 
+                    JOIN patients AS p 
+                    ON p.id = app.patient_id
+                    JOIN clinics AS c
+                    ON c.id = app.clinic_id
+                    ORDER BY date;`;
+                    //exexute query
       const result = await conn.query(sql);
       //close connection
       conn.release();
@@ -164,13 +175,159 @@ export class AppointmentClinic {
         // database connection
         const conn = await Client.connect();
         //sql query
-        const sql = 'SELECT * FROM appointments WHERE doctor_id=$1;';
+        const sql = `SELECT app.*, d.name AS doctor
+                    , c.name AS clinic
+                    , p.name AS patient
+                    FROM appointments as app 
+                    JOIN doctors AS d 
+                    ON d.id = app.doctor_id 
+                    JOIN patients AS p 
+                    ON p.id = app.patient_id
+                    JOIN clinics AS c
+                    ON c.id = app.clinic_id
+                    WHERE doctor_id=$1
+                    ORDER BY date;`;
         //exexute query
         const result = await conn.query(sql, [doctor_id]);
         //close connection
         conn.release();
         const appointment: Appointment = result.rows[0];
         return appointment;
+      } else {
+        throw new Error('You have entered wrong id');
+      }
+    } catch (err) {
+      throw new Error("Couldn't get this appointment Error message:" + err);
+    }
+  }
+  async getAppointmentByClinic(clinic_id: Number): Promise<Appointment> {
+    try {
+      if (clinic_id && clinic_id != 0) {
+        // database connection
+        const conn = await Client.connect();
+        //sql query
+        const sql = `SELECT app.*, d.name AS doctor
+                    , c.name AS clinic
+                    , p.name AS patient
+                    FROM appointments as app 
+                    JOIN doctors AS d 
+                    ON d.id = app.doctor_id 
+                    JOIN patients AS p 
+                    ON p.id = app.patient_id
+                    JOIN clinics AS c
+                    ON c.id = app.clinic_id
+                    WHERE clinic_id=$1
+                    ORDER BY date;`;
+        //exexute query
+        const result = await conn.query(sql, [clinic_id]);
+        //close connection
+        conn.release();
+        const appointment: Appointment = result.rows[0];
+        return appointment;
+      } else {
+        throw new Error('You have entered wrong id');
+      }
+    } catch (err) {
+      throw new Error("Couldn't get this appointment Error message:" + err);
+    }
+  }
+  async getAppointmentByPatient(patient_id: Number): Promise<Appointment> {
+    try {
+      if (patient_id && patient_id != 0) {
+        // database connection
+        const conn = await Client.connect();
+        //sql query
+        const sql = `SELECT app.*, d.name AS doctor
+                    , c.name AS clinic
+                    , p.name AS patient
+                    FROM appointments as app 
+                    JOIN doctors AS d 
+                    ON d.id = app.doctor_id 
+                    JOIN patients AS p 
+                    ON p.id = app.patient_id
+                    JOIN clinics AS c
+                    ON c.id = app.clinic_id
+                    WHERE patient_id=$1
+                    ORDER BY date;`;
+        //exexute query
+        const result = await conn.query(sql, [patient_id]);
+        //close connection
+        conn.release();
+        const appointment: Appointment = result.rows[0];
+        return appointment;
+      } else {
+        throw new Error('You have entered wrong id');
+      }
+    } catch (err) {
+      throw new Error("Couldn't get this appointment Error message:" + err);
+    }
+  }
+  async getAppointmentByFilter(doctor_id: Number, patient_id:Number, clinic_id:Number, date: string): Promise<Appointment[]> {
+    try {
+      if (true) {
+        // database connection
+        const conn = await Client.connect();
+        //sql query
+        const sql = `SELECT DISTINCT * from 
+        ((SELECT app.*, d.name AS doctor
+          , c.name AS clinic
+          , p.name AS patient
+          FROM appointments as app 
+          JOIN doctors AS d 
+          ON d.id = app.doctor_id 
+          JOIN patients AS p 
+          ON p.id = app.patient_id
+          JOIN clinics AS c
+          ON c.id = app.clinic_id
+          WHERE doctor_id=${doctor_id}
+          ORDER BY date) UNION 
+           (SELECT app.*, d.name AS doctor
+          , c.name AS clinic
+          , p.name AS patient
+          FROM appointments as app 
+          JOIN doctors AS d 
+          ON d.id = app.doctor_id 
+          JOIN patients AS p 
+          ON p.id = app.patient_id
+          JOIN clinics AS c
+          ON c.id = app.clinic_id
+          WHERE patient_id=${patient_id}
+          ORDER BY date)
+          UNION 
+           (SELECT app.*, d.name AS doctor
+          , c.name AS clinic
+          , p.name AS patient
+          FROM appointments as app 
+          JOIN doctors AS d 
+          ON d.id = app.doctor_id 
+          JOIN patients AS p 
+          ON p.id = app.patient_id
+          JOIN clinics AS c
+          ON c.id = app.clinic_id
+          WHERE clinic_id=${clinic_id}
+          ORDER BY date)
+          UNION 
+          (SELECT app.*, d.name AS doctor
+         , c.name AS clinic
+         , p.name AS patient
+         FROM appointments as app 
+         JOIN doctors AS d 
+         ON d.id = app.doctor_id 
+         JOIN patients AS p 
+         ON p.id = app.patient_id
+         JOIN clinics AS c
+         ON c.id = app.clinic_id
+         WHERE date= ${date}
+         ORDER BY date)
+          ) as k;`;
+          console.log(query);
+        //exexute query
+        const result = await conn.query(sql);
+        
+        //close connection
+        conn.release();
+        const appointmentsList: Appointment[] = result.rows;
+        return appointmentsList;
       } else {
         throw new Error('You have entered wrong id');
       }

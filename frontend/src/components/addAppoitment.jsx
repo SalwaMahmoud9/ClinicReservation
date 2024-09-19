@@ -229,7 +229,7 @@ fetchUsers();
                         onChange={(e) => setDoctor_id(e.target.value)}
                         required
                       >
-                        <option value={0}>---Select Docror--</option>
+                        <option value={0}>---Select Doctor--</option>
                         {doctors.length > 0 ?doctors.map((doctor, index)=> (
                           <option value={doctor.id}>{doctor.name}</option>
                         )):"loading..."}

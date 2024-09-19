@@ -109,7 +109,7 @@ const [clinicsListUpdated, setClinicsListUpdated] = useState(false); // Track up
 
     // appointment
 const [appointmentToEdit, setAppointmentToEdit] = useState(null);
-const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); // Track updates to doctor list
+const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); // Track updates to appointment list
   const handleEditAppointment= (appointment) => {
     setAppointmentToEdit(appointment);
   };
