@@ -267,59 +267,60 @@ export class AppointmentClinic {
       if (true) {
         // database connection
         const conn = await Client.connect();
-        //sql query
-        const sql = `SELECT DISTINCT * from 
-        ((SELECT app.*, d.name AS doctor
-          , c.name AS clinic
-          , p.name AS patient
-          FROM appointments as app 
-          JOIN doctors AS d 
-          ON d.id = app.doctor_id 
-          JOIN patients AS p 
-          ON p.id = app.patient_id
-          JOIN clinics AS c
-          ON c.id = app.clinic_id
-          WHERE doctor_id=${doctor_id}
-          ORDER BY date) UNION 
-           (SELECT app.*, d.name AS doctor
-          , c.name AS clinic
-          , p.name AS patient
-          FROM appointments as app 
-          JOIN doctors AS d 
-          ON d.id = app.doctor_id 
-          JOIN patients AS p 
-          ON p.id = app.patient_id
-          JOIN clinics AS c
-          ON c.id = app.clinic_id
-          WHERE patient_id=${patient_id}
-          ORDER BY date)
-          UNION 
-           (SELECT app.*, d.name AS doctor
-          , c.name AS clinic
-          , p.name AS patient
-          FROM appointments as app 
-          JOIN doctors AS d 
-          ON d.id = app.doctor_id 
-          JOIN patients AS p 
-          ON p.id = app.patient_id
-          JOIN clinics AS c
-          ON c.id = app.clinic_id
-          WHERE clinic_id=${clinic_id}
-          ORDER BY date)
-          UNION 
-          (SELECT app.*, d.name AS doctor
-         , c.name AS clinic
-         , p.name AS patient
-         FROM appointments as app 
-         JOIN doctors AS d 
-         ON d.id = app.doctor_id 
-         JOIN patients AS p 
-         ON p.id = app.patient_id
-         JOIN clinics AS c
-         ON c.id = app.clinic_id
-         WHERE date= ${date}
-         ORDER BY date)
-          ) as k;`;
+        // sql query
+        // const sql = `SELECT DISTINCT * from 
+        // ((SELECT app.*, d.name AS doctor
+        //   , c.name AS clinic
+        //   , p.name AS patient
+        //   FROM appointments as app 
+        //   JOIN doctors AS d 
+        //   ON d.id = app.doctor_id 
+        //   JOIN patients AS p 
+        //   ON p.id = app.patient_id
+        //   JOIN clinics AS c
+        //   ON c.id = app.clinic_id
+        //   WHERE doctor_id=${doctor_id}
+        //   ORDER BY date) UNION 
+        //    (SELECT app.*, d.name AS doctor
+        //   , c.name AS clinic
+        //   , p.name AS patient
+        //   FROM appointments as app 
+        //   JOIN doctors AS d 
+        //   ON d.id = app.doctor_id 
+        //   JOIN patients AS p 
+        //   ON p.id = app.patient_id
+        //   JOIN clinics AS c
+        //   ON c.id = app.clinic_id
+        //   WHERE patient_id=${patient_id}
+        //   ORDER BY date)
+        //   UNION 
+        //    (SELECT app.*, d.name AS doctor
+        //   , c.name AS clinic
+        //   , p.name AS patient
+        //   FROM appointments as app 
+        //   JOIN doctors AS d 
+        //   ON d.id = app.doctor_id 
+        //   JOIN patients AS p 
+        //   ON p.id = app.patient_id
+        //   JOIN clinics AS c
+        //   ON c.id = app.clinic_id
+        //   WHERE clinic_id=${clinic_id}
+        //   ORDER BY date)
+        //   UNION 
+        //   (SELECT app.*, d.name AS doctor
+        //  , c.name AS clinic
+        //  , p.name AS patient
+        //  FROM appointments as app 
+        //  JOIN doctors AS d 
+        //  ON d.id = app.doctor_id 
+        //  JOIN patients AS p 
+        //  ON p.id = app.patient_id
+        //  JOIN clinics AS c
+        //  ON c.id = app.clinic_id
+        //  WHERE date= ${date}
+        //  ORDER BY date)
+        //   ) as k;`;
+        const sql = `select id,user_id,doctor_id,patient_id,clinic_id,date,description,diagnosis,(select name from doctors where id=${doctor_id}) as doctor,(select name from clinics where id=${clinic_id}) as clinic,(select name from patients where id=${patient_id}) as patient from appointments where date= ${date} and doctor_id=${doctor_id} and patient_id=${patient_id} and clinic_id=${clinic_id}`;
           console.log(query);
         //exexute query
         const result = await conn.query(sql);
