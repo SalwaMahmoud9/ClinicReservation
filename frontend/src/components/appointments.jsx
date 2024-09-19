@@ -120,10 +120,12 @@ export const Appointments = ({ onEditAppointment, refreshTrigger }) => {
                 setAppointments(data); // Update the appointments state with the filtered data
                 // how to reload table after click filter here answer me ?
             } else {
+                setAppointments({});//empty data
                 const errorData = await response.json();
                 setError(errorData.message || "Failed to fetch appointments");
             }
         } catch (error) {
+            setAppointments({});//empty data
             setError("An error occurred. Please try again.");
         }
     };
