@@ -114,9 +114,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
       'degree' in req.body &&
       req.body.degree &&
       'specialization' in req.body &&
-      req.body.specialization &&
-      'description' in req.body &&
-      req.body.description
+      req.body.specialization
     ) {
       const name = req.body.name as string;
       const phone = req.body.phone as string;
@@ -125,7 +123,11 @@ const create = async (req: Request, res: Response): Promise<void> => {
       const address = req.body.address as string;
       const degree = req.body.degree as string;
       const specialization = req.body.specialization as string;
-      const description = req.body.description as string;
+      var description = ''
+      if ('description' in req.body)
+      {
+         description = req.body.description as string;
+      }
     //   const parsedBirthdate = new Date(birthdate);
     //   if (isNaN(parsedBirthdate.getTime())) {
     //     res.status(400).send("Invalid birthdate format.");
@@ -182,10 +184,9 @@ const update = async (req: Request, res: Response): Promise<void> => {
       'degree' in req.body &&
       req.body.degree &&
       'specialization' in req.body &&
-      req.body.specialization &&
-      'description' in req.body &&
-      req.body.description
-    ) {
+      req.body.specialization 
+      
+) {
       const id = parseInt(req.params.id as string);
       const name = req.body.name as string;
       const phone = req.body.phone as string;
@@ -194,7 +195,11 @@ const update = async (req: Request, res: Response): Promise<void> => {
       const address = req.body.address as string;
       const degree = req.body.degree as string;
       const specialization = req.body.specialization as string;
-      const description = req.body.description as string;
+      var description =''
+      if('description' in req.body)
+      {
+         description = req.body.description as string;
+      }
       const parsedBirthdate = new Date(req.body.birthdate);
       if (isNaN(parsedBirthdate.getTime())) {
           res.status(400).send("Invalid birthdate format.");

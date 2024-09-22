@@ -246,7 +246,6 @@ export const AddDoctor = ({ doctorToEdit, clearDoctor, onDoctorChange }) => {
                         className="form-control"
                         placeholder="Description"
                         onChange={(e) => setDescription(e.target.value)}
-                        required
                       />
                       <p className="help-block text-danger"></p>
                     </div>

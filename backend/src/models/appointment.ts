@@ -321,8 +321,36 @@ export class AppointmentClinic {
         //  ORDER BY date)
         //   ) as k;`;
         // simple query
-        const sql = `select id,user_id,doctor_id,patient_id,clinic_id,date,description,diagnosis,(select name from doctors where id=${doctor_id}) as doctor,(select name from clinics where id=${clinic_id}) as clinic,(select name from patients where id=${patient_id}) as patient from appointments where date= ${date} and doctor_id=${doctor_id} and patient_id=${patient_id} and clinic_id=${clinic_id}`;
-          console.log(query);
+        // var dateCond=""
+        // if(date !="" )
+        // and doctor_id=${doctor_id} and patient_id=${patient_id} and clinic_id=${clinic_id})
+        // console.log('date:');
+        // console.log((date.length));
+        var sql
+        if (date.length ==2)
+        {
+          sql = `select id,user_id,doctor_id,patient_id,clinic_id,date,description,diagnosis,
+        (select name from doctors where id=appointments.doctor_id  ) as doctor,
+        (select name from clinics where id=appointments.clinic_id) as clinic,
+        (select name from patients where id=appointments.patient_id) as patient 
+        from appointments
+         where  1 = 1
+        AND (${doctor_id} = '0' OR doctor_id = ${doctor_id}) AND (${patient_id} = '0' OR patient_id = ${patient_id})
+        AND (${clinic_id} = '0' OR clinic_id = ${clinic_id})`;
+        }
+        else{
+          sql = `select id,user_id,doctor_id,patient_id,clinic_id,date,description,diagnosis,
+        (select name from doctors where id=appointments.doctor_id  ) as doctor,
+        (select name from clinics where id=appointments.clinic_id) as clinic,
+        (select name from patients where id=appointments.patient_id) as patient 
+        from appointments
+         where  1 = 1
+        AND (${doctor_id} = '0' OR doctor_id = ${doctor_id}) AND (${patient_id} = '0' OR patient_id = ${patient_id})
+        AND (${clinic_id} = '0' OR clinic_id = ${clinic_id})
+        AND ( date = ${date});`;
+        }
+        
+        
         //exexute query
         const result = await conn.query(sql);
         
