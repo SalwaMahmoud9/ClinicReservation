@@ -123,8 +123,6 @@ const create = async (req: Request, res: Response): Promise<void> => {
       req.body.clinic_id &&
       'date' in req.body &&
       req.body.date &&
-      'diagnosis' in req.body &&
-      req.body.diagnosis &&
       'description' in req.body &&
       req.body.description
     ) {
@@ -133,7 +131,11 @@ const create = async (req: Request, res: Response): Promise<void> => {
       const clinic_id = parseInt(req.body.clinic_id as string);
       const user_id = parseInt(req.body.user_id as string);
       const date = req.body.date as Date;
-      const diagnosis = req.body.diagnosis as string;
+      var diagnosis = ''
+      if('diagnosis' in req.body)
+      {
+         diagnosis =req.body.diagnosis as string;
+      }
       const description = req.body.description as string;
       //check parameters type
       if (typeof user_id == 'number' && typeof doctor_id == 'number') {
@@ -182,8 +184,6 @@ const update = async (req: Request, res: Response): Promise<void> => {
       req.body.clinic_id &&
       'user_id' in req.body &&
       req.body.user_id &&
-      'diagnosis' in req.body &&
-      req.body.diagnosis &&
       'description' in req.body &&
       req.body.description
     ) {
@@ -193,7 +193,11 @@ const update = async (req: Request, res: Response): Promise<void> => {
       const date = req.body.date as Date;
       const clinic_id = parseInt(req.body.clinic_id as string);
       const user_id = parseInt(req.body.user_id as string);
-      const diagnosis = req.body.diagnosis as string;
+      var diagnosis = ''
+      if('diagnosis' in req.body)
+      {
+         diagnosis= req.body.diagnosis as string;
+      }
       const description = req.body.description as string;
       const parsedBirthdate = new Date(req.body.date);
       if (isNaN(parsedBirthdate.getTime())) {

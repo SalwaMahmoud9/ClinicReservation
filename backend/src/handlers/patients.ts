@@ -110,16 +110,18 @@ const create = async (req: Request, res: Response): Promise<void> => {
       'birthdate' in req.body &&
       req.body.birthdate &&
       'address' in req.body &&
-      req.body.address &&
-      'description' in req.body &&
-      req.body.description
+      req.body.address 
     ) {
       const name = req.body.name as string;
       const phone = req.body.phone as string;
       const gender = req.body.gender as string;
       const birthdate = req.body.birthdate as Date;
       const address = req.body.address as string;
-      const description = req.body.description as string;
+      var description = ''
+      if('description' in req.body)
+      { 
+        description = req.body.description as string;
+      }
       //check parameters type
       if (typeof name == 'string' && typeof phone == 'string') {
         const patient: Patient = {
@@ -165,9 +167,7 @@ const update = async (req: Request, res: Response): Promise<void> => {
       'birthdate' in req.body &&
       req.body.birthdate &&
       'address' in req.body &&
-      req.body.address &&
-      'description' in req.body &&
-      req.body.description
+      req.body.address 
     ) {
       const id = parseInt(req.params.id as string);
       const name = req.body.name as string;
@@ -175,7 +175,11 @@ const update = async (req: Request, res: Response): Promise<void> => {
       const gender = req.body.gender as string;
       const birthdate = req.body.birthdate as Date;
       const address = req.body.address as string;
-      const description = req.body.description as string;
+      var description = ''
+      if('description' in req.body)
+      {
+        description = req.body.description as string;
+      }
       const parsedBirthdate = new Date(req.body.birthdate);
       // check params types
       if (
