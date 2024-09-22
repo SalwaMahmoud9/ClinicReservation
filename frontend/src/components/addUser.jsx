@@ -27,7 +27,29 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
   }
 }, [userToEdit]);
 
+// handlePasswordChange
+const handlePasswordChange = (e) => {
+  setPassword(e.target.value);
 
+  // Check if retype password matches the newPassword
+  if (userToEdit && newPassword && e.target.value !== newPassword) {
+    setError("Passwords do not match!");
+  } else {
+    setError(""); // Clear error if passwords match
+  }
+};
+
+// handleRetypePasswordChange
+const handleRetypePasswordChange = (e) => {
+  setNewPassword(e.target.value);
+
+  // Check if retype password matches the password
+  if (userToEdit && password && e.target.value !== password) {
+    setError("Passwords do not match!");
+  } else {
+    setError(""); // Clear error if passwords match
+  }
+};
 // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +57,14 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
       const userId = userToEdit ? userToEdit.id : null;
       const url = userId ? `/users/${userId}` : '/users';
       const method = userId ? "PUT" : "POST";
+      // Check if passwords match
+      // if (userId && password !== newPassword) {
+      //   setError("Passwords do not match!");
+      // } else {
+      //   setError(""); // Clear the error if passwords match
+      //   // Proceed with form submission (e.g., send data to API)
+      //   console.log("Form submitted with Password:", password);
+      // }
 
       const response = await fetch(url, {
         method,
@@ -120,7 +150,8 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
                         id="password"
                         name="password"
                         value={password}
-                        onChange={(e)=> setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
+                        // onChange={(e)=> setPassword(e.target.value)}
                         className="form-control"
                         placeholder="Password"
                         required
@@ -137,7 +168,8 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
                         id="newPassword"
                         name="newPassword"
                         value={newPassword}
-                        onChange={(e)=> setNewPassword(e.target.value)}
+                        // onChange={(e)=> setNewPassword(e.target.value)}
+                        onChange={handleRetypePasswordChange}
                         className="form-control"
                         placeholder="New Password"
                         required
@@ -167,6 +199,7 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
                     </div>
                 </div>
                 <div id="success"></div>
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <button type="submit" className="btn btn-custom btn-lg">
                 {userToEdit ? "Update" : "Save"} {/* Update button text */}
                 </button>
