@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Table Component
-export const Appointments = ({ onEditAppointment, refreshTrigger }) => {
+export const Appointments = ({ onEditAppointment, refreshTrigger,doctorsListUpdated , clinicsListUpdated, patientsListUpdated }) => {
     const [appointments, setAppointments] = useState([]);
     const [doctors, setDoctors] = useState([]);
     const [patients, setPatients] = useState([]);
@@ -72,7 +72,7 @@ export const Appointments = ({ onEditAppointment, refreshTrigger }) => {
         fetchDoctors();
         fetchClinics();
         fetchPatients();
-    }, []);
+    }, [doctorsListUpdated,clinicsListUpdated, patientsListUpdated]);
 
     // Function to fetch appointments when the component mounts or refreshTrigger changes
     const fetchAppointments = async () => {

@@ -6,6 +6,8 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
   // State variables to store form inputs and error messages
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [type, setType] = useState("doctor");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -92,6 +94,24 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
                     </div>
                   </div>
                 </div>
+                {userToEdit ? <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <input
+                        type="password"
+                        id="oldPassword"
+                        name="oldPassword"
+                        value={oldPassword}
+                        onChange={(e)=> setOldPassword(e.target.value)}
+                        className="form-control"
+                        placeholder="Old Password"
+                        required
+                      />
+                      <p className="help-block text-danger"></p>
+                    </div>
+                  </div>
+                </div> : ''}
+                
                 <div className="row">
                   <div className="col-md-12">
                     <div className="form-group">
@@ -109,6 +129,23 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
                     </div>
                   </div>
                 </div>
+                {userToEdit ? <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <input
+                        type="password"
+                        id="newPassword"
+                        name="newPassword"
+                        value={newPassword}
+                        onChange={(e)=> setNewPassword(e.target.value)}
+                        className="form-control"
+                        placeholder="New Password"
+                        required
+                      />
+                      <p className="help-block text-danger"></p>
+                    </div>
+                  </div>
+                </div> : ""}
                 <div className="row">
                     <div className="col-md-12">
                         <div className="form-group">

@@ -150,8 +150,10 @@ const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); /
             <AddDoctor doctorToEdit={doctorToEdit} clearDoctor={handleClearDoctor} onDoctorChange={refreshDoctorsList} />
             <Patients onEditPatient={handleEditPatient} refreshTrigger={patientsListUpdated} />
             <AddPatient patientToEdit={patientToEdit} clearPatient={handleClearPatient} onPatientChange={refreshPatientsList} />
-            <Appointments  onEditAppointment={handleEditAppointment} refreshTrigger={appointmentsListUpdated} />
-            <AddAppointment appointmentToEdit={appointmentToEdit} clearAppointment={handleClearAppointment} onAppointmentChange={refreshAppointmentsList} />
+            <Appointments  onEditAppointment={handleEditAppointment} refreshTrigger={appointmentsListUpdated}
+            doctorsListUpdated={doctorsListUpdated} clinicsListUpdated={clinicsListUpdated} patientsListUpdated={patientsListUpdated}/>
+            <AddAppointment appointmentToEdit={appointmentToEdit} clearAppointment={handleClearAppointment} onAppointmentChange={refreshAppointmentsList} 
+            doctorsListUpdated={doctorsListUpdated} clinicsListUpdated={clinicsListUpdated} patientsListUpdated={patientsListUpdated}/>
             <Contact data={landingPageData.Contact} />
           </>
         } 

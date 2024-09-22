@@ -1,7 +1,7 @@
 // addappointment.jsx
 import React, { useState, useEffect }from "react";
 
-export const AddAppointment = ({ appointmentToEdit, clearAppointment, onAppointmentChange }) => {
+export const AddAppointment = ({ appointmentToEdit, clearAppointment, onAppointmentChange,doctorsListUpdated,clinicsListUpdated, patientsListUpdated }) => {
 
   // State variables to store form inputs and error messages
   const [user_id, setUser_id] = useState("");
@@ -138,7 +138,7 @@ fetchUsers();
     setDiagnosis("");
     setDescription("");
   }
-}, [appointmentToEdit]);
+}, [appointmentToEdit,doctorsListUpdated,clinicsListUpdated, patientsListUpdated]);
 
 
 // Handle form submission
@@ -317,7 +317,6 @@ fetchUsers();
                         className="form-control"
                         placeholder="Description"
                         onChange={(e) => setDescription(e.target.value)}
-                        required
                       />
                       <p className="help-block text-danger"></p>
                     </div>

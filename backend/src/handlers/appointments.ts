@@ -122,9 +122,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
       'clinic_id' in req.body &&
       req.body.clinic_id &&
       'date' in req.body &&
-      req.body.date &&
-      'description' in req.body &&
-      req.body.description
+      req.body.date
     ) {
       const doctor_id = parseInt(req.body.doctor_id as string);
       const patient_id = parseInt(req.body.patient_id as string);
@@ -136,7 +134,11 @@ const create = async (req: Request, res: Response): Promise<void> => {
       {
          diagnosis =req.body.diagnosis as string;
       }
-      const description = req.body.description as string;
+      var description = ''
+      if('description' in req.body)
+      {
+        description= req.body.diagnosis as string;
+      }
       //check parameters type
       if (typeof user_id == 'number' && typeof doctor_id == 'number') {
         const appointment: Appointment = {
@@ -183,9 +185,7 @@ const update = async (req: Request, res: Response): Promise<void> => {
       'clinic_id' in req.body &&
       req.body.clinic_id &&
       'user_id' in req.body &&
-      req.body.user_id &&
-      'description' in req.body &&
-      req.body.description
+      req.body.user_id
     ) {
       const id = parseInt(req.params.id as string);
       const doctor_id = parseInt(req.body.doctor_id as string);
@@ -198,7 +198,11 @@ const update = async (req: Request, res: Response): Promise<void> => {
       {
          diagnosis= req.body.diagnosis as string;
       }
-      const description = req.body.description as string;
+      var description = ''
+      if('description' in req.body)
+      {
+        description= req.body.diagnosis as string;
+      }
       const parsedBirthdate = new Date(req.body.date);
       if (isNaN(parsedBirthdate.getTime())) {
           res.status(400).send("Invalid date format.");
