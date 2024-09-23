@@ -3,6 +3,13 @@ import { Request, Response, Application } from 'express';
 import { User, UserClinic } from '../models/user';
 import jwt from 'jsonwebtoken';
 import tokenAuthentication from '../middlewares/tokenAuthentication';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+// to use .env file variables
+dotenv.config();
+// add pepper and salt to be used in hash password
+const pepper = process.env.BCRYPT_PASSWORD;
+const saltRounds = process.env.SALT_ROUNDS;
 
 // define user Store class to use it
 const userClinic = new UserClinic();
@@ -126,12 +133,27 @@ const update = async (req: Request, res: Response): Promise<void> => {
       const username = req.body.username as string;
       const type = req.body.type as string;
       const password = req.body.password as string;
+      const oldPassword = req.body.oldPassword as string;
+    
+      // generate hash password
+      // const hashPass = bcrypt.hashSync(
+      //   oldPassword + pepper,
+      //   parseInt(saltRounds as string)
+      // );
+      // console.log("oldPassword"+oldPassword + pepper)
+      var savedOldPass = ''
+      const user = await userClinic.show(id);
+      if(user)
+      {
+        savedOldPass = user.password
+      }
+      console.log("savedOldPass"+savedOldPass)
       //check parameters types
       if (
         typeof id == 'number' &&
         typeof password == 'string' &&
         typeof type == 'string' &&
-        typeof username == 'string'
+        typeof username == 'string' && bcrypt.compareSync(oldPassword + pepper, savedOldPass)
       ) {
         const user: User = {
           id: id,

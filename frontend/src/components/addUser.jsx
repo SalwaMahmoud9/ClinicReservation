@@ -7,6 +7,7 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
+  // const [oldPass, setOldPass] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [type, setType] = useState("doctor");
   const [error, setError] = useState("");
@@ -18,6 +19,9 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
   if (userToEdit) {
     setUsername(userToEdit.username || "");
     setPassword(""); // Do not pre-fill the password for security reasons
+    setOldPassword("");
+    // setOldPass("");
+    setNewPassword("");
     setType(userToEdit.type || "doctor");
   } else {
     // Clear form fields when adding a new user
@@ -65,33 +69,62 @@ const handleRetypePasswordChange = (e) => {
       //   // Proceed with form submission (e.g., send data to API)
       //   console.log("Form submitted with Password:", password);
       // }
+      var response;
+      if(method == "PUT")
+      {//edit
+        if(newPassword == password)
+        {
+          response = await fetch(url, {
+            method,
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem("token")}`, // Include token in Authorization header
+            },
+            body: JSON.stringify({ username, password, type ,oldPassword }),
+          });
+          setError("");
+        }else{
+          response = null;
+          setError("Check password")
+        }
+      }
+      else
+      {//add
+        response = await fetch(url, {
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`, // Include token in Authorization header
+          },
+          body: JSON.stringify({ username, password, type }),
+        });
+      }
 
-      const response = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`, // Include token in Authorization header
-        },
-        body: JSON.stringify({ username, password, type }),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setSuccess(result.message || "User saved successfully");
-        clearUser(); // Clear user details after successful save
-        // Clear form fields
-        setUsername("");
-        setPassword("");
-        setType("doctor");
-        onUserChange(); // Trigger user list refresh
-        document.querySelector("#users").scrollIntoView({ behavior: "smooth" }); // Smooth scroll to users
-
+      if (response && response.ok ) {
+        try{
+          const result = await response.json();
+          setSuccess(result.message || "User saved successfully");
+          clearUser(); // Clear user details after successful save
+          // Clear form fields
+          setUsername("");
+          setPassword("");
+          setType("doctor");
+          onUserChange(); // Trigger user list refresh
+          document.querySelector("#users").scrollIntoView({ behavior: "smooth" }); // Smooth scroll to users
+        }catch (error) {
+          console.log(error)
+          setError("Wrong Data");
+        }
     
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to save user");
+        if(response)
+        {
+          const errorData = await response.json();
+          setError(errorData.message || "Failed to save user");
+        }
       }
     } catch (error) {
+      console.log(error)
       setError("An error occurred. Please try again.");
     }
   };
@@ -199,7 +232,7 @@ const handleRetypePasswordChange = (e) => {
                     </div>
                 </div>
                 <div id="success"></div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                {userToEdit && error && error != "" ? <p style={{ color: "red" }}>{error}</p>:""}
                 <button type="submit" className="btn btn-custom btn-lg">
                 {userToEdit ? "Update" : "Save"} {/* Update button text */}
                 </button>
