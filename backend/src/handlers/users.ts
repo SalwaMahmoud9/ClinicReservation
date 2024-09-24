@@ -135,12 +135,6 @@ const update = async (req: Request, res: Response): Promise<void> => {
       const password = req.body.password as string;
       const oldPassword = req.body.oldPassword as string;
     
-      // generate hash password
-      // const hashPass = bcrypt.hashSync(
-      //   oldPassword + pepper,
-      //   parseInt(saltRounds as string)
-      // );
-      // console.log("oldPassword"+oldPassword + pepper)
       var savedOldPass = ''
       const user = await userClinic.show(id);
       if(user)

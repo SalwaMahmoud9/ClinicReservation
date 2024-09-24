@@ -132,25 +132,4 @@ export class ClinicClinic {
       throw new Error("Couldn't delete this clinic Error message:" + err);
     }
   }
-  // get clinic by doctor_id
-  async getClinicByid(id: Number): Promise<Clinic> {
-    try {
-      if (id && id != 0) {
-        // database connection
-        const conn = await Client.connect();
-        //sql query
-        const sql = 'SELECT * FROM clinics WHERE id=$1;';
-        //exexute query
-        const result = await conn.query(sql, [id]);
-        //close connection
-        conn.release();
-        const clinic: Clinic = result.rows[0];
-        return clinic;
-      } else {
-        throw new Error('You have entered wrong id');
-      }
-    } catch (err) {
-      throw new Error("Couldn't get this clinic Error message:" + err);
-    }
-  }
 }

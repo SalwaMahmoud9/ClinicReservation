@@ -12,7 +12,7 @@ const appointmentsRoutes = (app: Application): void => {
   //get appointment by id
   app.get('/appointments/:id',tokenAuthentication ,show);
   //get appointment Filter
-  // [OPTIONAL] Appointments Filter (args: appointment clinic_id,,patient_id,patient_id)
+  // Appointments Filter (args: appointment clinic_id,patient_id,patient_id)
   app.get(
     '/appointmentsFilter/:doctor_id/:patient_id/:clinic_id/:date',
     tokenAuthentication,

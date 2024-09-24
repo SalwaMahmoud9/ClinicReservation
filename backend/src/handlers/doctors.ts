@@ -11,13 +11,6 @@ const doctorsRoutes = (app: Application): void => {
   app.get('/doctors',tokenAuthentication, index);
   //get doctor by id
   app.get('/doctors/:id',tokenAuthentication ,show);
-  // get doctor by category
-  //[OPTIONAL] Doctors by category (args: doctor category)
-//   app.get(
-//     '/doctorsCategory/:category',
-//     tokenAuthentication,
-//     getDoctorByCategory
-//   );
   //insert doctor
   app.post('/doctors', tokenAuthentication, create);
   // update doctor by id
@@ -69,33 +62,6 @@ const show = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send(err);
   }
 };
-// // get doctor by category
-// const getDoctorByCategory = async (
-//   req: Request,
-//   res: Response
-// ): Promise<void> => {
-//   try {
-//     // check category in request
-//     if ('category' in req.params) {
-//       if (req.params.category) {
-//         const category = req.params.category as string;
-//         const doctor = await doctorClinic.getDoctorByCategory(category);
-//         // check if there is returned data
-//         if (doctor) {
-//           res.json(doctor);
-//         } else {
-//           res.send('No Result');
-//         }
-//       } else {
-//         res.send('Check your id');
-//       }
-//     } else {
-//       res.send('check category in params');
-//     }
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// };
 //insert doctor
 const create = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -128,11 +94,6 @@ const create = async (req: Request, res: Response): Promise<void> => {
       {
          description = req.body.description as string;
       }
-    //   const parsedBirthdate = new Date(birthdate);
-    //   if (isNaN(parsedBirthdate.getTime())) {
-    //     res.status(400).send("Invalid birthdate format.");
-    //     return;
-    // }
       //check parameters type
       if (typeof name == 'string' && typeof phone == 'string') {
         const doctor: Doctor = {

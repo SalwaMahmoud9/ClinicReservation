@@ -11,13 +11,6 @@ const clinicsRoutes = (app: Application): void => {
   app.get('/clinics',tokenAuthentication, index);
   //get clinic by id
   app.get('/clinics/:id',tokenAuthentication ,show);
-  // get clinic by category
-  //[OPTIONAL] Clinics by category (args: clinic category)
-//   app.get(
-//     '/clinicsCategory/:category',
-//     tokenAuthentication,
-//     getClinicByCategory
-//   );
   //insert clinic
   app.post('/clinics', tokenAuthentication, create);
   // update clinic by id
@@ -69,33 +62,6 @@ const show = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send(err);
   }
 };
-// // get clinic by category
-// const getClinicByCategory = async (
-//   req: Request,
-//   res: Response
-// ): Promise<void> => {
-//   try {
-//     // check category in request
-//     if ('category' in req.params) {
-//       if (req.params.category) {
-//         const category = req.params.category as string;
-//         const clinic = await clinicClinic.getClinicByCategory(category);
-//         // check if there is returned data
-//         if (clinic) {
-//           res.json(clinic);
-//         } else {
-//           res.send('No Result');
-//         }
-//       } else {
-//         res.send('Check your id');
-//       }
-//     } else {
-//       res.send('check category in params');
-//     }
-//   } catch (err) {
-//     res.status(500).send(err);
-//   }
-// };
 //insert clinic
 const create = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -152,25 +152,4 @@ export class DoctorClinic {
       throw new Error("Couldn't delete this Doctor Error message:" + err);
     }
   }
-  // get Doctor by specialization
-  async getDoctorBySpecialization(specialization: string): Promise<Doctor> {
-    try {
-      if (specialization && typeof specialization === 'string') {
-        // database connection
-        const conn = await Client.connect();
-        //sql query
-        const sql = 'SELECT * FROM Doctors WHERE specialization=$1;';
-        //exexute query
-        const result = await conn.query(sql, [specialization]);
-        //close connection
-        conn.release();
-        const Doctor: Doctor = result.rows[0];
-        return Doctor;
-      } else {
-        throw new Error('You have entered wrong id');
-      }
-    } catch (err) {
-      throw new Error("Couldn't get this Doctor Error message:" + err);
-    }
-  }
 }
