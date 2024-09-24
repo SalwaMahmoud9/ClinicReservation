@@ -1,8 +1,4 @@
-# Storefront Backend Project
-
-## Main function 
-I'm starting this project by helping from my session leads , class rooms and slack community to get the project final result.
-the project main functionality is to make apart of backend for online clinicReservation with simple products, users and make orders.
+# Clinic Reservation Backend Project
 
 ## Required Technologies
 Your application must make use of the following:
@@ -174,215 +170,73 @@ add src/models:
   - Delete[/users/:id]
   **authenticate user**
   - POST[/users/:username]
-#### products.ts 
-  **get all products**
-  - GET[/products]
+#### appointments.ts 
+  **get all appointments**
+  - GET[/appointments]
   **get product by id**
-  - GET[/products/:id]
-  **get product by category**
-  **[OPTIONAL] Products by category (args: product category)**
-  - GET[/productsCategory/:category]
+  - GET[/appointments/:id]
   **insert product**
-  -POST[/products]
+  -POST[/appointments]
   **update product by id**
-  - PUT[/products/:id]
+  - PUT[/appointments/:id]
   **delete product by id**
-  - DElETE[/products/:id]
+  - DElETE[/appointments/:id]
+  **get all appointments by filter**
+  - GET[/appointmentsFilter/:doctor_id/:patient_id/:clinic_id/:date] 
 
-#### orders.ts 
-  **get all orders**
-  - GET[/orders] 
-  **get orders by id**
-  - GET[/orders/:id]
+#### clinics.ts 
+  **get all clinics**
+  - GET[/clinics] 
+  **get clinics by id**
+  - GET[/clinics/:id]
   **create new order**
-  - POST[/orders]
+  - POST[/clinics]
    **update order by id**
-  - PUT[/orders/:id]
+  - PUT[/clinics/:id]
   **delete order by id**
-  - DELETE[/orders/:id]
-  **add product to cart(order_products) table**
-  - POST[/orders/:id/products]
-#### dashboard.ts  
- **get all products in all orders**
-  - GET[/dashboard]
-  **get All active or complete Order by user**
-  **in requirements file this 2 points:**
-  **Current Order by user (args: user id) as [dashboard/:user_id/active]**
-  **Completed Orders by user (args: user id) as [dashboard/:user_id/complete]**
-  - GET[/dashboard/:user_id/:status]
-  **5 most recent purchases**
-  **Add a users 5 most recent purchases to the data being sent back from the user show endpoint (/users/id)**
-  -GET[/dashboard/recentOrders/users/:user_id]
+  - DELETE[/clinics/:id]
 
-  **Top 5 most popular products**
-  - GET[/dashboard/popularProducts]
- 
+#### doctors.ts 
+  **get all doctors**
+  - GET[/doctors] 
+  **get doctors by id**
+  - GET[/doctors/:id]
+  **create new order**
+  - POST[/doctors]
+   **update order by id**
+  - PUT[/doctors/:id]
+  **delete order by id**
+  - DELETE[/doctors/:id]  
+
+#### patients.ts 
+  **get all patients**
+  - GET[/patients] 
+  **get patients by id**
+  - GET[/patients/:id]
+  **create new order**
+  - POST[/patients]
+   **update order by id**
+  - PUT[/patients/:id]
+  **delete order by id**
+  - DELETE[/patients/:id]  
 
 ### 5. steps after start :
 
-(npm run test)=>to test all functions and end points
 (npm run start)=> to start 
 
-1. create user first by:
+create user first by:
   POST[/users]
 example add in body json data:
     {
 "username": "admin",
-"firstname": "admin",
-"lastname": "admin",
+"type": "doctor/reception",
 "password": "admin"
 }
 return json data for new user
-2. authorize user to get token to use it:
+authorize user to get token to use it:
 example: POST[/users/admin]
 add in body json data:{
   "password": "admin"  
 }
 this  will return token
 get the token and then put it in header [Authorization] ='brear tokenReturned'
-
-4.access all functions needs token by adding this token in header & can add products:
-POST[/products]
-{
-"name":"item1",
-"price":50,
-"category":"inv"
-}
-return json data for new product
-3. note in Orders : **user in token (authorized user) must be the same user id inserted or updated**
-example : after add token of same user
-POST[/orders]
-{
-"user_id":1,
-"status":"active"
-}
-return json data for new order
-PUT[/orders/1]
-{
-"user_id":1,
-"status":"complete"
-}
-return json data for updated order
-POST[/orders/1/products]
-{
-"product_id":1,
-"quantity":5
-}
-return json Number of Added orderss
-
-3.some examples:
-
-
-###### server 
-
-- Test main Start page get[/]
-###### users 
-Users authenticate
-    post[/users/admin]
-    { "password": "admin"} 
-    return token token ='brear '+ returnedtokens
-   
-Get all
-    get[/users]  
-    set[Authorization]= token
-
-Get user  
-    get[/users/1]  
-    set[Authorization]= token
-
-Create
-    post[/users]
-    set[Authorization]= token
-      {
-        "username": "user2",
-        "firstname": "First2",
-        "lastname": "Last2",
-        "password": "12311"
-        }
-Update
-      put[/users/2]   
-      set[Authorization]= token
-      {
-        "username": "user2",
-        "firstname": "First2",
-        "lastname": "Last2",
-        "password": "12311"
-        }
-Delete
-    delete[/users/3]   
-    set[Authorization]= token
-
-###### products 
-Products get all
-    get[/products]
-    set[Authorization]= token
-  
-Get product
-    get[/products/1]
-    set[Authorization]= token
-Create
-    post[/products]  
-    set[Authorization]= token
-      { "name": "item2","price": 200, "category": "inventory"}   
-Get product by category
-    get[/productsCategory/inventory]
-    set[Authorization]= token
-    
-Update
-    put[/products/1]
-    set[Authorization]= token
-      { "name": "item1", "price": 800, "category": "service"} 
-   
-Delete
-    delete[/products/9]
-    set[Authorization]= token
-      
-###### orders
-Orders get all
-    get[/orders]
-    set[Authorization]= token
-Get order
-    get[/orders/1]   
-    set[Authorization]= token
-Create
-    post[/orders]   
-    set[Authorization]= token
-      { "user_id": 1, "status": "active"} 
-Update   
-    put[/orders/1]   
-    set[Authorization]= token
-    { "user_id": 1, "status": "complete"}   
-Delete
-    get[/orders/5]   
-    set[Authorization]= token
-
-Add product
-    post[/orders/1/products]
-    set[Authorization]= token
-    { "product_id": 2, "quantity": 4} 
-    post[/orders/2/products]
-    set[Authorization]= token
-    { "product_id": 1, "quantity": 4} 
-###### dashboard 
-Dashboard Get all products in orders
-    get[/dashboard]
-    set[Authorization]= token
-Get completed orders by user
-    get[/dashboard/1/complete]
-    set[Authorization]= token
-Get active order by user    
-    get[/dashboard/1/active]
-    set[Authorization]= token
-Get 5 recent purchases by user id
-Get 5 most recent purchases
-    get[/dashboard/recentOrders/users/1]
-    set[Authorization]= token
-Get 5 popular products 
-Get popular products    
-    get[/dashboard/popularProducts]
-    set[Authorization]= token
-      
-   
-  
-
-  
