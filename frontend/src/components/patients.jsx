@@ -1,3 +1,4 @@
+// patient.jxs
 import React from "react";
 import { useEffect, useState } from "react";
 
@@ -93,5 +94,3 @@ export const Patients = ({ onEditPatient, refreshTrigger }) => {
     </div>
     );
   };
-  
-

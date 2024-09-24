@@ -1,3 +1,4 @@
+// login.jsx
 import React, { useState } from "react";
 
 export const UserLogin = ({onLogin}) => {
@@ -32,7 +33,6 @@ export const UserLogin = ({onLogin}) => {
             }
             
         } catch (error) {
-            // alert("Error during login:", error);
             setError("An error occurred. Please try again.");
             
         }

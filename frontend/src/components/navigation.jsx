@@ -1,5 +1,5 @@
+//navigation.jsx
 import React from "react";
-import { Link } from "react-router-dom";  // Import Link for navigation
 
 export const Navigation = ({ userName, onLogout }) => {
   return (
@@ -28,15 +28,6 @@ export const Navigation = ({ userName, onLogout }) => {
           id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-right">
-            
-              {/* <a href="#features" className="page-scroll">
-                Features
-              </a> */}
-              <li>
-               {/* <a href="#users" className="page-scroll">
-                Users
-              </a> */}
-            </li>
             <li>
               <a href="#about" className="page-scroll">
                 About
@@ -62,11 +53,6 @@ export const Navigation = ({ userName, onLogout }) => {
                 Appointments
               </a>
             </li>
-            {/* <li>
-              <a href="#contact" className="page-scroll">
-                Contact
-              </a>
-            </li> */}
             {userName && (
               <>
                 <li>
@@ -76,9 +62,7 @@ export const Navigation = ({ userName, onLogout }) => {
                   <a onClick={onLogout} style={{ cursor: "pointer" }}>Logout</a>
                 </li>
               </>
-            )}
-              
-            
+            )}              
           </ul>
         </div>
       </div>

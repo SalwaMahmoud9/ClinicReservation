@@ -1,4 +1,4 @@
-// adduser.jsx
+// addUser.jsx
 import React, { useState, useEffect }from "react";
 
 export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
@@ -7,7 +7,6 @@ export const AddUser = ({ userToEdit, clearUser, onUserChange }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
-  // const [oldPass, setOldPass] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [type, setType] = useState("doctor");
   const [error, setError] = useState("");
@@ -61,14 +60,6 @@ const handleRetypePasswordChange = (e) => {
       const userId = userToEdit ? userToEdit.id : null;
       const url = userId ? `/users/${userId}` : '/users';
       const method = userId ? "PUT" : "POST";
-      // Check if passwords match
-      // if (userId && password !== newPassword) {
-      //   setError("Passwords do not match!");
-      // } else {
-      //   setError(""); // Clear the error if passwords match
-      //   // Proceed with form submission (e.g., send data to API)
-      //   console.log("Form submitted with Password:", password);
-      // }
       var response;
       if(method == "PUT")
       {//edit
@@ -184,7 +175,6 @@ const handleRetypePasswordChange = (e) => {
                         name="password"
                         value={password}
                         onChange={handlePasswordChange}
-                        // onChange={(e)=> setPassword(e.target.value)}
                         className="form-control"
                         placeholder="Password"
                         required
@@ -201,7 +191,6 @@ const handleRetypePasswordChange = (e) => {
                         id="newPassword"
                         name="newPassword"
                         value={newPassword}
-                        // onChange={(e)=> setNewPassword(e.target.value)}
                         onChange={handleRetypePasswordChange}
                         className="form-control"
                         placeholder="New Password"

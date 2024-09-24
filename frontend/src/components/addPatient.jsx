@@ -1,4 +1,4 @@
-// addpatient.jsx
+// addPatient.jsx
 import React, { useState, useEffect }from "react";
 
 export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => {
@@ -14,17 +14,12 @@ export const AddPatient = ({ patientToEdit, clearPatient, onPatientChange }) => 
   const [success, setSuccess] = useState("");
 
 
- // Reset form fields when patientToEdit changes (i.e., when editing a patient)
  useEffect(() => {
   
   if (patientToEdit) {
     setName(patientToEdit.name || "");
     setPhone(patientToEdit.phone || ""); 
     setGender(patientToEdit.gender || "male");
-    // setBirthdate(patientToEdit.birthdate || "");
-    // Format the birthdate to YYYY-MM-DD for input type="date"
-    // const parsedBirthdate = patientToEdit.birthdate ? new Date(patientToEdit.birthdate).toISOString().split("T")[0] : "";
-    // Check if birthdate exists, then adjust it accordingly
     let adjustedDate;
     console.log(patientToEdit.birthdate)
     if (patientToEdit.birthdate) {

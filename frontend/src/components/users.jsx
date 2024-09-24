@@ -91,5 +91,3 @@ export const Users = ({ onEditUser, refreshTrigger }) => {
     </div>
     );
   };
-  
-

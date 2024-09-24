@@ -1,4 +1,4 @@
-// addclinic.jsx
+// addClinic.jsx
 import React, { useState, useEffect }from "react";
 
 export const AddClinic = ({ clinicToEdit, clearClinic, onClinicChange }) => {
@@ -12,8 +12,8 @@ export const AddClinic = ({ clinicToEdit, clearClinic, onClinicChange }) => {
 
  // Reset form fields when clinicToEdit changes (i.e., when editing a clinic)
  useEffect(() => {
-  
   if (clinicToEdit) {
+    // show
     setName(clinicToEdit.name || "");
     setAddress(clinicToEdit.address || "");
   } else {

@@ -1,4 +1,4 @@
-// addappointment.jsx
+// addAppointment.jsx
 import React, { useState, useEffect }from "react";
 
 export const AddAppointment = ({ appointmentToEdit, clearAppointment, onAppointmentChange,doctorsListUpdated,clinicsListUpdated, patientsListUpdated }) => {
@@ -21,7 +21,6 @@ export const AddAppointment = ({ appointmentToEdit, clearAppointment, onAppointm
 
  // Reset form fields when appointmentToEdit changes (i.e., when editing a appointment)
  useEffect(() => {
-  
         // Fetch all doctors
         const fetchDoctors = async () => {
           try {
@@ -104,6 +103,7 @@ fetchDoctors();
 fetchPatients();
 fetchUsers();
   if (appointmentToEdit) {
+    // show
     setUser_id(appointmentToEdit.user_id || "");
     setDoctor_id(appointmentToEdit.doctor_id || ""); 
     setPatient_id(appointmentToEdit.patient_id || "");
@@ -197,7 +197,7 @@ fetchUsers();
               <div className="row">
                     <div className="section-title">
                         <h2> Appointment</h2>
-                        <h2> add / change appointment data</h2>
+                        <h2> Add / Change appointment data</h2>
                     </div>
                 </div>
                 <div className="row">

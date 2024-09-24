@@ -1,3 +1,4 @@
+// about.jsx
 import React from "react";
 
 export const About = (props) => {

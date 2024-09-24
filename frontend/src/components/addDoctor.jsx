@@ -1,4 +1,4 @@
-// adddoctor.jsx
+// addDoctor.jsx
 import React, { useState, useEffect }from "react";
 
 export const AddDoctor = ({ doctorToEdit, clearDoctor, onDoctorChange }) => {
@@ -23,10 +23,6 @@ export const AddDoctor = ({ doctorToEdit, clearDoctor, onDoctorChange }) => {
     setName(doctorToEdit.name || "");
     setPhone(doctorToEdit.phone || ""); 
     setGender(doctorToEdit.gender || "male");
-    // setBirthdate(doctorToEdit.birthdate || "");
-    // Format the birthdate to YYYY-MM-DD for input type="date"
-    // const parsedBirthdate = doctorToEdit.birthdate ? new Date(doctorToEdit.birthdate).toISOString().split("T")[0] : "";
-    // Check if birthdate exists, then adjust it accordingly
     let adjustedDate;
     console.log(doctorToEdit.birthdate)
     if (doctorToEdit.birthdate) {
