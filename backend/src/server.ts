@@ -22,7 +22,7 @@ clinicRoutes(app);
 appointmentRoutes(app);
 
 app.get('/', function (req: Request, res: Response) {
-  res.send('start your online store');
+  res.send('start');
 });
 
 app.listen(5000, function () {
