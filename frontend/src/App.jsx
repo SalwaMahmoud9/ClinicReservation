@@ -1,19 +1,19 @@
 //app.jsx
 import React, { useState, useEffect } from "react";
-import { Navigation } from "./components/navigation";
-import { Header } from "./components/header";
-import { Users } from "./components/users";
-import { AddUser } from "./components/addUser";
-import { About } from "./components/about";
-import { Contact } from "./components/contact";
-import { Clinics } from "./components/clinics";
-import { AddClinic } from "./components/addClinic";
-import { Doctors } from "./components/doctors";
-import { AddDoctor } from "./components/addDoctor";
-import { Patients } from "./components/patients";
-import { AddPatient } from "./components/addPatient";
-import { Appointments } from "./components/appointments";
-import { AddAppointment } from "./components/addAppoitment";
+import { Navigation } from "./components/navigation"; // Import the navigation component
+import { Header } from "./components/header"; // Import the header component
+import { Users } from "./components/users"; // Import the users component
+import { AddUser } from "./components/addUser"; // Import the addUser component
+import { About } from "./components/about"; // Import the about component
+import { Contact } from "./components/contact"; // Import the contact component
+import { Clinics } from "./components/clinics"; // Import the clinics component
+import { AddClinic } from "./components/addClinic"; // Import the addClinic component
+import { Doctors } from "./components/doctors"; // Import the doctors component
+import { AddDoctor } from "./components/addDoctor"; // Import the addDoctor component
+import { Patients } from "./components/patients"; // Import the patients component
+import { AddPatient } from "./components/addPatient"; // Import the addPatient component
+import { Appointments } from "./components/appointments"; // Import the appointments component
+import { AddAppointment } from "./components/addAppoitment"; // Import the addAppoitment component
 import { UserLogin } from "./components/login";  // Import the Login component
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";// Import the Login component
 import JsonData from "./data/data.json";
