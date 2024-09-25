@@ -36,27 +36,29 @@ const App = () => {
     setLandingPageData(JsonData);
     
   }, []);
-
+   // user section
   const handleLogin = (name) => {
     setIsAuthenticated(true); // Set login state to true after successful login
     setUserName(name); // Set the user's name upon successful login
   };
+
   const handleLogout = () => {
     setIsAuthenticated(false);
     setUserName(""); // Clear the user's name on logout
   };
-   // user
-const handleEditUser = (user) => {
-  setUserToEdit(user);
-};
 
-const handleClearUser = () => {
-  setUserToEdit(null);
-};
+  const handleEditUser = (user) => {
+    setUserToEdit(user);
+  };
+
+  const handleClearUser = () => {
+    setUserToEdit(null);
+  };
   // Function to trigger re-fetching users after add/edit
   const refreshUsersList = () => {
     setUsersListUpdated(!usersListUpdated); // Toggle the state to force re-fetch in Users component
   };
+  
   // doctor
   const [doctorToEdit, setDoctorToEdit] = useState(null);
   const [doctorsListUpdated, setDoctorsListUpdated] = useState(false); // Track updates to doctor list
