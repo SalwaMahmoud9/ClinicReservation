@@ -58,8 +58,8 @@ const App = () => {
   const refreshUsersList = () => {
     setUsersListUpdated(!usersListUpdated); // Toggle the state to force re-fetch in Users component
   };
-  
-  // doctor
+
+  // doctor section
   const [doctorToEdit, setDoctorToEdit] = useState(null);
   const [doctorsListUpdated, setDoctorsListUpdated] = useState(false); // Track updates to doctor list
   const handleEditDoctor = (doctor) => {
@@ -77,24 +77,24 @@ const App = () => {
     // patient
     const [patientToEdit, setPatientToEdit] = useState(null);
     const [patientsListUpdated, setPatientsListUpdated] = useState(false); // Track updates to patient list
-  const handleEditPatient = (patient) => {
-    setPatientToEdit(patient);
-  };
+    const handleEditPatient = (patient) => {
+      setPatientToEdit(patient);
+    };
   
-  const handleClearPatient = () => {
-    setPatientToEdit(null);
-  };
+    const handleClearPatient = () => {
+      setPatientToEdit(null);
+    };
     // Function to trigger re-fetching Patients after add/edit
     const refreshPatientsList = () => {
       setPatientsListUpdated(!patientsListUpdated); // Toggle the state to force re-fetch in Patients component
     };
 
-// clinic
-const [clinicToEdit, setClinicToEdit] = useState(null);
-const [clinicsListUpdated, setClinicsListUpdated] = useState(false); // Track updates to doctor list
-  const handleEditClinic= (clinic) => {
-    setClinicToEdit(clinic);
-  };
+  // clinic section
+  const [clinicToEdit, setClinicToEdit] = useState(null);
+  const [clinicsListUpdated, setClinicsListUpdated] = useState(false); // Track updates to doctor list
+    const handleEditClinic= (clinic) => {
+      setClinicToEdit(clinic);
+    };
   
   const handleClearClinic = () => {
     setClinicToEdit(null);
@@ -104,9 +104,9 @@ const [clinicsListUpdated, setClinicsListUpdated] = useState(false); // Track up
       setClinicsListUpdated(!clinicsListUpdated); // Toggle the state to force re-fetch in Clinics component
     };
 
-    // appointment
-const [appointmentToEdit, setAppointmentToEdit] = useState(null);
-const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); // Track updates to appointment list
+  // appointment section
+  const [appointmentToEdit, setAppointmentToEdit] = useState(null);
+  const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); // Track updates to appointment list
   const handleEditAppointment= (appointment) => {
     setAppointmentToEdit(appointment);
   };
@@ -114,10 +114,12 @@ const [appointmentsListUpdated, setAppointmentsListUpdated] = useState(false); /
   const handleClearAppointment = () => {
     setAppointmentToEdit(null);
   };
-    // Function to trigger re-fetching Appointments after add/edit
-    const refreshAppointmentsList = () => {
-      setAppointmentsListUpdated(!appointmentsListUpdated); // Toggle the state to force re-fetch in Appointments component
-    };
+  // Function to trigger re-fetching Appointments after add/edit
+  const refreshAppointmentsList = () => {
+    setAppointmentsListUpdated(!appointmentsListUpdated); // Toggle the state to force re-fetch in Appointments component
+  };
+
+  
   return (
     <Router>
     <Routes>
