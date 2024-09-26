@@ -99,6 +99,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
              description:description
         };
         const newPatient = await patientClinic.create(patient);
+        console.log(newPatient)
         // check if there is returned data
         if (newPatient) {
           res.json(newPatient);
@@ -111,6 +112,7 @@ const create = async (req: Request, res: Response): Promise<void> => {
     } else {
       res.send('Check your parameters');
     }
+    console.log(res)
   } catch (err) {
     // console.log(err)
     res.status(500).send(err);
